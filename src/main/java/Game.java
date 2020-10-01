@@ -9,9 +9,9 @@ public class Game {
 
     private Board board;
 
-    public void startTheGame(int x, int y){
+    public void startTheGame(int x, int y) {
         this.board.filltheBoard();
-        this.board.findTheWay(x,y);
+        this.board.findTheWay(x, y);
 
     }
 }

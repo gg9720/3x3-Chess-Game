@@ -9,6 +9,6 @@ public class Main {
         Tile[][] desk = new Tile[4][4];
         Board board = new Board(desk);
         Game tryOne = new Game(board);
-        tryOne.startTheGame(n,m);
+        tryOne.startTheGame(n, m);
     }
 }

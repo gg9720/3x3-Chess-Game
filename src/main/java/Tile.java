@@ -12,8 +12,8 @@ public class Tile {
     private int y;
     private boolean visited;
 
-    public boolean canTileMove(){
-        if(this.getX() == 2 && this.getY() == 2){
+    public boolean canTileMove() {
+        if (this.getX() == 2 && this.getY() == 2) {
             return false;
         }
         return true;
