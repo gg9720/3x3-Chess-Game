@@ -3,14 +3,16 @@ import lombok.AllArgsConstructor;
 import java.util.LinkedList;
 import java.util.Queue;
 
-
 @AllArgsConstructor
 public class Board {
+    private static final int ALLX[] = {-2, -1, 1, 2, -2, -1, 1, 2};
+    private static final int ALLY[] = {-1, -2, -2, -1, 1, 2, 2, 1};
     private static final int MAX = 3;
+    private static final int MIN = 1;
     private Tile[][] cells;
 
-    static boolean isInside(int x, int y) {
-        if (x >= 1 && x <= MAX && y >= 1 && y <= MAX) {
+    private static boolean isInside(int x, int y) {
+        if (x >= MIN && x <= MAX && y >= MIN && y <= MAX) {
             return true;
         }
         return false;
@@ -20,9 +22,9 @@ public class Board {
         return MAX;
     }
 
-    public void filltheBoard() {
-        for (int i = 1; i <= MAX; i++) {
-            for (int j = 1; j <= MAX; j++) {
+    public void fillTheBoard() {
+        for (int i = MIN; i <= MAX; i++) {
+            for (int j = MIN; j <= MAX; j++) {
                 cells[i][j] = new Tile(i, j, false);
             }
         }
@@ -30,34 +32,29 @@ public class Board {
 
     public void findTheWay(int x, int y) {
 
-        int allX[] = {-2, -1, 1, 2, -2, -1, 1, 2};
-        int allY[] = {-1, -2, -2, -1, 1, 2, 2, 1};
-
         Queue<Tile> elements = new LinkedList<Tile>();
 
-        if (getTile(x, y).canTileMove()) {
-            elements.add(getTile(x, y));
-            getTile(x, y).setVisited(true);
-        } else {
+        if (!getTile(x, y).canTileMove()) {
             System.out.println("Impossible to move");
             return;
         }
 
+        elements.add(getTile(x, y));
+        getTile(x, y).setVisited(true);
+
         System.out.println("The starting tile is " + getTile(x, y).getX() + " " + getTile(x, y).getY());
-        Tile current;
-        int newX;
-        int newY;
+
         while (!elements.isEmpty()) {
-            current = elements.poll();
+            Tile current = elements.poll();
             System.out.println("Current tile " + current.getX() + " " + current.getY() + " from the queue");
             if (current.getX() == getMAX() && current.getY() == getMAX()) {
                 System.out.println("Reached bottom right corner");
                 return;
             }
 
-            for (int i = 0; i < allX.length; i++) {
-                newX = current.getX() + allX[i];
-                newY = current.getY() + allY[i];
+            for (int i = 0; i < ALLX.length; i++) {
+               int newX = current.getX() + ALLX[i];
+               int newY = current.getY() + ALLY[i];
 
                 if (isInside(newX, newY)) {
                     if (!getTile(newX, newY).isVisited()) {

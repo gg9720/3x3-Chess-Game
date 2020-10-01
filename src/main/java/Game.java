@@ -10,7 +10,7 @@ public class Game {
     private Board board;
 
     public void startTheGame(int x, int y) {
-        this.board.filltheBoard();
+        this.board.fillTheBoard();
         this.board.findTheWay(x, y);
 
     }
