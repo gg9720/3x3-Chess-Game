@@ -12,10 +12,10 @@ public class Tile {
     private int y;
     private boolean visited;
 
+    /**
+     * @return if the selected tile can even move or not
+     */
     public boolean canTileMove() {
-        if (this.getX() == 2 && this.getY() == 2) {
-            return false;
-        }
-        return true;
+        return this.getX() != 2 || this.getY() != 2;
     }
 }

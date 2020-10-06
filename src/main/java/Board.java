@@ -1,9 +1,13 @@
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 @AllArgsConstructor
+@Getter
+@Setter
 public class Board {
     private static final int ALLX[] = {-2, -1, 1, 2, -2, -1, 1, 2};
     private static final int ALLY[] = {-1, -2, -2, -1, 1, 2, 2, 1};
@@ -12,24 +16,28 @@ public class Board {
     private Tile[][] cells;
 
     private static boolean isInside(int x, int y) {
-        if (x >= MIN && x <= MAX && y >= MIN && y <= MAX) {
-            return true;
-        }
-        return false;
+        return x >= MIN && x <= MAX && y >= MIN && y <= MAX;
     }
 
-    public static int getMAX() {
-        return MAX;
-    }
-
+    /**
+     * void method to fill the board with Tile objects
+     */
     public void fillTheBoard() {
         for (int i = MIN; i <= MAX; i++) {
             for (int j = MIN; j <= MAX; j++) {
-                cells[i][j] = new Tile(i, j, false);
+                this.getCells()[i][j] = new Tile(i, j, false);
             }
         }
     }
 
+    /**
+     * This method uses two coordinates of a Tile to start searching for a path to get to the
+     * final point. The parameters are the coordinates of the Tile. We can reach the final point
+     * from every selected Tile which can move ofcourse.
+     *
+     * @param x first coordinate of the starting point which we will use to get to the final cell
+     * @param y second coordinate of the starting point which we will use to get to the final cell
+     */
     public void findTheWay(int x, int y) {
 
         Queue<Tile> elements = new LinkedList<Tile>();
@@ -47,14 +55,14 @@ public class Board {
         while (!elements.isEmpty()) {
             Tile current = elements.poll();
             System.out.println("Current tile " + current.getX() + " " + current.getY() + " from the queue");
-            if (current.getX() == getMAX() && current.getY() == getMAX()) {
+            if (current.getX() == MAX && current.getY() == MAX) {
                 System.out.println("Reached bottom right corner");
                 return;
             }
 
             for (int i = 0; i < ALLX.length; i++) {
-               int newX = current.getX() + ALLX[i];
-               int newY = current.getY() + ALLY[i];
+                int newX = current.getX() + ALLX[i];
+                int newY = current.getY() + ALLY[i];
 
                 if (isInside(newX, newY)) {
                     if (!getTile(newX, newY).isVisited()) {
@@ -67,11 +75,16 @@ public class Board {
                 }
             }
         }
-        System.out.println("Cannot be reached");
+
     }
 
+    /**
+     * @param x first coordinate of the wanted tile
+     * @param y second coordinate of the wanted tile
+     * @return the tile we wanted to get
+     */
     public Tile getTile(int x, int y) {
-        return cells[x][y];
+        return getCells()[x][y];
     }
 
 }

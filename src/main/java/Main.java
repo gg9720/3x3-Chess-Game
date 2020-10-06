@@ -7,7 +7,7 @@ public class Main {
         System.out.println("Please enter the coordinates: ");
         int n = sc.nextInt();
         int m = sc.nextInt();
-        while(n<1 || n>3 || m<1 || m>3){
+        while (n < 1 || n > 3 || m < 1 || m > 3) {
             System.out.println("Invalid input, try again: ");
             n = sc.nextInt();
             m = sc.nextInt();
